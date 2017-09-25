@@ -1,0 +1,28 @@
+<page-header title="Roles"></page-header>
+
+<div class="pagecontent">
+  <div class="row">
+    <button type="button" class="btn pink lighten-1"><i class="fa fa-plus left"></i> Add Role</button>
+  </div>
+
+  <div class="row">
+    <table class="bordered highlight responsive-table">
+      <thead>
+        <tr>
+          <th class="table-index">#</th>
+          <th>Name</th>
+          <th>Notes</th>
+          <th>Permissions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let role of roles; let i = index">
+          <td class="table-index">{{i + 1}}.</td>
+          <td>{{role.name}}</td>
+          <td>{{role.notes}}</td>
+          <td>{{role.permissions}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="login-body">
+    <div class="row">
+        <div class="col s12 m4 offset-m4">
+            <div class="card grey lighten-5">
+                <div class="card-content">
+                    <div class="card-title center-align">Sign In</div>
+                    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="fa fa-user-circle prefix"></i>
+                                <input id="email" type="text" class="validate" formControlName="username">
+                                <label for="email">Username</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <i class="fa fa-unlock-alt prefix"></i>
+                                <input id="password" type="password" class="validate" formControlName="password">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12 center-align">
+                                <button class="btn waves-effect waves-light" type="submit" [disabled]="!loginForm.valid" *ngIf="!loading">
+                                    <i class="fa fa-sign-in left"></i> Submit
+                                </button>
+                                <span class="btn" disabled *ngIf="loading">
+                                    <i class="fa fa-spinner fa-spin"></i> Authenticating
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

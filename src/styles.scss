@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+.pageheader {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #e4e5e7;
+    /* border-radius: 4px; */
+}
+
+.pagecontent {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.my-breadcrumb {
+    // font-size: 13px;
+    padding-left: 10px!important;
+}
+.my-breadcrumb> ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 2em;
+    color: #333;
+}
+  
+.my-breadcrumb > li {
+    display: inline-block;
+    position: relative;
+    padding-right: 2em;
+    margin: 0;
+}
+
+.my-breadcrumb >li:after {
+    content: '>';
+    position: absolute;
+    display: inline-block;
+    right: 0;
+    width: 2em;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+}
+
+.my-breadcrumb >li:last-child {
+    font-weight: bold;
+    color: #337ab7;
+}
+
+.my-breadcrumb >li:last-child:after {
+    content: '';
+}
+
+.my-breadcrumb li > a {
+    text-decoration: none;
+    display: inline-block;
+    color: #333;
+    white-space: nowrap;
+    padding: 5px 10px 5px 10px;
+}
+
+.my-breadcrumb li > a:hover {
+    background-color: #ccc;
+}
+
+.table-index {
+    width: 40px;
+    text-align: center;
+}
