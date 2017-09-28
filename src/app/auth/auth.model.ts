@@ -4,12 +4,14 @@ export interface User {
     name: string;
     email: string;
     token: string;
-    role: Role
+    role: Role;
 }
 
 export interface Role {
-    name: string
-    permissions: string[]
+    id: number;
+    name: string;
+    notes: string;
+    permissions: string;
 }
 
 export interface LoginParams {

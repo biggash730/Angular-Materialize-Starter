@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { ButtonModule, DataTableModule, SharedModule, PaginatorModule } from 'primeng/primeng';
+import { ButtonModule, DataTableModule, SharedModule, PaginatorModule, DialogModule, DropdownModule, BlockUIModule } from 'primeng/primeng';
 
 import { AppComponent } from './app.component';
 import { PageHeaderComponent } from "./shared/page-header/page-header.component";
@@ -18,11 +19,15 @@ import { AdminComponent } from './admin/admin.component';
 import { Interceptor } from "./shared/interceptor";
 import { UserComponent } from './user/user.component';
 import { RoleComponent } from './role/role.component';
+import { RoleService } from './role/role.service';
+import { UserService } from './user/user.service';
+import { LoadingComponent } from './shared/loading.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageHeaderComponent,
+    LoadingComponent,
     DashboardComponent,
     SettingsComponent,
     PageNotFoundComponent,
@@ -33,16 +38,20 @@ import { RoleComponent } from './role/role.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ButtonModule, DataTableModule, SharedModule, PaginatorModule
+    ButtonModule, DataTableModule, SharedModule, PaginatorModule, DialogModule, DropdownModule, BlockUIModule
   ],
   providers: [
-    AuthGuard,
-    AuthService, 
     {provide: 'baseApi', useValue: 'api'},
-    {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},
+    AuthGuard,
+    AuthService,
+    RoleService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

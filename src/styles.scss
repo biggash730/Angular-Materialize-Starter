@@ -64,3 +64,80 @@
     width: 40px;
     text-align: center;
 }
+
+// .ui-dialog-content {
+//     height: auto!important;
+// }
+
+.ui-dialog-footer {
+    padding: 0 !important;
+    border: none !important;
+    border-top: 1px solid #c7c7c7 !important;
+}
+
+.ui-dropdown-filter-container {
+    width: 100%;
+
+    input[type=text] {
+        border: 1px solid #66afe9 !important;
+        box-shadow: none !important;
+    }
+}
+
+.alert {
+    transition: box-shadow .25s;
+    padding: 12px;
+    margin: .5rem 0 1rem 0;
+    border-radius: 2px;
+    background-color: #f3f3f3;
+    color: #333;
+
+    &.alert-success {
+        background-color: #c8e6c9 ;
+        color: #1b5e20 ;
+    }
+
+    &.alert-info {
+        background-color: #bbdefb ;
+        color: #0d47a1 ;
+    }
+
+    &.alert-warning {
+        background-color: #fff9c4;
+        color: #f57f17 ;
+    }
+
+    &.alert-danger {
+        background-color:  #ffcdd2;
+        color: #b71c1c ;
+    }
+
+    .close {
+        position: absolute;
+        top: 50%;
+        right: 0.5rem;
+
+        color: inherit;
+        margin-top: -18px;
+    }
+}
+
+.title-line {
+    border-bottom: 1px solid #ddd;
+    font-size: 18px !important;
+}
+
+.card .card-content {
+    padding: 24px 12px 24px 12px !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.blocked-content {
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    font-size: 20px;
+}

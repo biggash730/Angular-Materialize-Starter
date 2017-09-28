@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
 export class AuthService {
   currentUser: User
 
-  constructor(private http: HttpClient,
+  constructor(private httpClient: HttpClient,
     @Inject('baseApi') private baseApi: string
   ) {
     if (localStorage.getItem("currentUser")) {
@@ -18,11 +18,11 @@ export class AuthService {
   }
 
   authenticate(params: LoginParams) {
-    return this.http.post<ResponseObject<User>>(`${this.baseApi}/auth/login`, params)
+    return this.httpClient.post<ResponseObject<User>>(`${this.baseApi}/auth/login`, params)
   }
 
   invalidate() {
-    return this.http.get<ResponseObject<User>>(`${this.baseApi}/auth/logout`)
+    return this.httpClient.get<ResponseObject<User>>(`${this.baseApi}/auth/logout`)
   }
 
   setUser(user: User) {

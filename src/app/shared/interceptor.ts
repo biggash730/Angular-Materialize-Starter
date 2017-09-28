@@ -21,12 +21,13 @@ export class Interceptor implements HttpInterceptor {
         return next
             .handle(authReq)
             .do((response: HttpResponse<any>) => {
-                if (response.status === 200) {
+                if (response.status === 200 && req.method !== 'GET') {
                     Toast.show(response.body.msg, response.body.success);
                 }
             },
             err => {
-                Toast.error(err.error.msg);
+                if (err.message) Toast.error(err.message);
+                else if (err.error) Toast.error(err.error.error);
             });
     }
 

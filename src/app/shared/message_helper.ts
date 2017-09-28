@@ -1,4 +1,6 @@
 import * as toast from "toastr/toastr"
+import swal from "sweetalert2"
+import { SweetAlertType } from "sweetalert2";
 
 export class Toast {
     static success(message: string) {
@@ -27,5 +29,41 @@ export class Toast {
 
     static clear() {
         toast.clear()
+    }
+}
+
+export class MessageDialog {
+    static success(message: string) {
+        swal("Success", message, "success");
+    }
+
+    static error(message: string) {
+        swal("Error", message, "error");
+    }
+
+    static info(message: string) {
+        swal("Info", message, "info");
+    }
+
+    static warning(message: string) {
+        swal("Warning", message, "warning");
+    }
+
+    static show(message: string, success: boolean) {
+        let type: SweetAlertType = success ? "success" : "error";
+        swal(type.toUpperCase(), message, type);
+    }
+
+    static confirm(title: string, message: string) {
+        return swal({
+            title: title,
+            text: message,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            confirmButtonColor: "#5cb85c",
+            cancelButtonColor: '#d33'
+        })
     }
 }

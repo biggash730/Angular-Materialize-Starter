@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
+import { SelectItem } from 'primeng/primeng';
+
+import { User } from '../auth/auth.model';
+import { UserService } from './user.service';
+import { RoleService } from '../role/role.service';
+import { MessageDialog } from '../shared/message_helper';
 
 @Component({
   selector: 'app-user',
@@ -7,16 +15,112 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  roles = [
-    {"name": "Oboi", "notes": "Oboi", "permissions": 4},
-    {"name": "Bobo", "notes": "Oboi", "permissions":12},
-    {"name": "Ratti", "notes": "Oboi", "permissions": 5},
-    {"name": "Fred", "notes": "Oboi", "permissions": 9}
-  ]
+  loading: boolean;
+  showForm: boolean;
+  saving: boolean;
+  deleting: boolean;
 
-  constructor() { }
+  users: User[]
+  roles: SelectItem[] = [];
+  userForm: FormGroup;
+  user: User;
+  selectedUser: User;
 
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private roleService: RoleService) {
+    this.userForm = this.formBuilder.group({
+      id: new FormControl(''),
+      name: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')),
+      username: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(5)
+      ])),
+      password: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(6)
+      ])),
+      passwordConfirmation: new FormControl('', Validators.required),
+      role: new FormControl('', Validators.required)
+    }, { validator: this.checkPasswords });
   }
 
+  ngOnInit() {
+    this.fetchUsers();
+    // this.roles.push({ label: "Select Role", value: null });
+    this.fetchRoles();
+  }
+
+  openForm() {
+    this.showForm = true;
+  }
+
+  closeForm() {
+    this.showForm = false;
+    this.userForm.reset();
+  }
+
+  checkPasswords(formGroup: FormGroup) {
+    if (!formGroup.controls) return null;
+    return formGroup.controls['password'].value === formGroup.controls['passwordConfirmation'].value ? null : { passwordMismatch: true }
+  }
+
+  onRowSelect(event) {
+    this.userForm.patchValue(event.data);
+    this.showForm = true;
+  }
+
+  save() {
+    this.user = this.userForm.value;
+    this.saving = true;
+    this.userService.save(this.user).subscribe((res) => {
+      this.saving = false;
+      if (res.success) {
+        this.showForm = false;
+        this.userForm.reset();
+        this.fetchUsers();
+      }
+    }, err => {
+      console.log("Something happened" + err);
+    });
+  }
+
+  remove(id: number) {
+    MessageDialog.confirm("Delete User", "Are you sure you want to delete this user").then((yes) => {
+      if (yes) {
+        this.deleting = true;
+        this.userService.destroy(id).subscribe((res) => {
+          this.deleting = false;
+          if (res.success) {
+            this.showForm = false;
+            this.userForm.reset();
+            this.fetchUsers();
+          }
+        }, err => {
+          console.log("Something happened" + err);
+        });
+      }
+    }).catch((err) => {});
+  }
+
+  private fetchUsers() {
+    this.loading = true;
+    this.userService.fetch().subscribe((res) => {
+      this.loading = false;
+      if (res.success) {
+        this.users = res.data;
+      }
+    });
+  }
+
+  private fetchRoles() {
+    this.loading = true;
+    this.roleService.fetch().subscribe((res) => {
+      this.loading = false;
+      if (res.success) {
+        this.roles = res.data.map((role) => {
+          return { label: role.name, value: role }
+        })
+      }
+    });
+  }
 }
