@@ -1,6 +1,6 @@
 <page-header title="User Administration"></page-header>
 
-<div class="pagecontent">
+<div class="page-content">
     <div class="row">
         <button type="button" class="btn pink lighten-1" (click)="openForm()"><i class="fa fa-plus left"></i> Add User</button>
     </div>
@@ -14,7 +14,7 @@
             <p-column field="name" header="Name" sortable="true"></p-column>
             <p-column field="username" header="Username" sortable="true"></p-column>
             <p-column field="email" header="Email" sortable="true"></p-column>
-            <p-column header="Role" sortable="true">
+            <p-column field="role.name" header="Role" sortable="true">
                 <ng-template let-user="rowData" pTemplate="body">
                     {{user.role?.name || 'N/A'}}
                 </ng-template>

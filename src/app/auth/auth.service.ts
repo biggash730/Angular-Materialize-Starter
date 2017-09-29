@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 // import { Http } from "@angular/http/http";
-import { Observable } from "rxjs/Rx";
+// import { Observable } from "rxjs/Rx";
 import { User, LoginParams } from "./auth.model";
 import { ResponseObject } from "../shared/common-entities.model";
 import { HttpClient } from "@angular/common/http";

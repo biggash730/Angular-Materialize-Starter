@@ -1,10 +1,10 @@
 <page-header title="Roles"></page-header>
 
-<div class="pagecontent">
+<div class="page-content">
   <p-blockUI [blocked]="saving">
     <span class="blocked-content">Saving... <i class="fa fa-spinner fa-spin fa-2x"></i></span>
   </p-blockUI>
-  
+
   <div class="row" *ngIf="!showForm">
     <button type="button" class="btn pink lighten-1" (click)="openForm()" *ngIf="!loading"><i class="fa fa-plus left"></i> Add Role</button>
     <loading class="right" text="Loading..." *ngIf="loading"></loading>

@@ -9,6 +9,7 @@ import { LoginComponent } from "./auth/login.component";
 import { AdminComponent } from "./admin/admin.component";
 import { UserComponent } from "./user/user.component";
 import { RoleComponent } from "./role/role.component";
+import { GeneralLookupComponent } from "./settings/general-lookup/general-lookup.component";
 
 const appRoutes: Routes = [
     { 
@@ -24,6 +25,11 @@ const appRoutes: Routes = [
     { 
         path: 'settings', 
         component: SettingsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'settings/:model',
+        component: GeneralLookupComponent,
         canActivate: [AuthGuard]
     },
     { 

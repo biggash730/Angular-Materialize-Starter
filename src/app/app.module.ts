@@ -22,6 +22,8 @@ import { RoleComponent } from './role/role.component';
 import { RoleService } from './role/role.service';
 import { UserService } from './user/user.service';
 import { LoadingComponent } from './shared/loading.component';
+import { GeneralLookupComponent } from './settings/general-lookup/general-lookup.component';
+import { SettingsService } from './settings/settings.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { LoadingComponent } from './shared/loading.component';
     LoginComponent,
     AdminComponent,
     UserComponent,
-    RoleComponent
+    RoleComponent,
+    GeneralLookupComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ import { LoadingComponent } from './shared/loading.component';
     AuthGuard,
     AuthService,
     RoleService,
-    UserService
+    UserService,
+    SettingsService
   ],
   bootstrap: [AppComponent]
 })
