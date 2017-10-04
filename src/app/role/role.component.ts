@@ -108,6 +108,8 @@ console.log(cnt);
         this.showForm = false;
         this.fetchRoles();
       }
+    }, err => {
+      console.log("Error -> " + err.message);
     });
   }
 
@@ -123,10 +125,12 @@ console.log(cnt);
             this.role = <Role>{};
           }
         }, err => {
-          console.log("Something happened" + err);
+          console.log("Error -> " + err.message);
         });
       }
-    }).catch((err) => {});
+    }).catch((err) => {
+      console.log("Error -> " + err.message);
+    });
   }
 
   private fetchRoles() {
@@ -136,7 +140,10 @@ console.log(cnt);
       if (res.success) {
         this.roles = res.data;
       }
-    })
+    }, err => {
+      this.loading = false;
+      console.log("Error -> " + err.message);
+    });
   }
 
   private fetchPermissions() {
@@ -145,8 +152,7 @@ console.log(cnt);
         this.permissions = res.data;
       }
     }, err => {
-      console.log(err);
-      
+      console.log("Error -> " + err.message);
     });
   }
 }

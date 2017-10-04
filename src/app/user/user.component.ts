@@ -80,7 +80,7 @@ export class UserComponent implements OnInit {
         this.fetchUsers();
       }
     }, err => {
-      console.log("Something happened" + err);
+      console.log("Error -> " + err.message);
     });
   }
 
@@ -96,7 +96,7 @@ export class UserComponent implements OnInit {
             this.fetchUsers();
           }
         }, err => {
-          console.log("Something happened" + err);
+          console.log("Error -> " + err.message);
         });
       }
     }).catch((err) => {});
