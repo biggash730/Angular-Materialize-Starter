@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { SelectItem } from 'primeng/primeng';
+import { SelectItem, LazyLoadEvent } from 'primeng/primeng';
 
-import { User } from '../auth/auth.model';
+import { User, UserQuery } from '../auth/auth.model';
 import { UserService } from './user.service';
 import { RoleService } from '../role/role.service';
 import { MessageDialog } from '../shared/message_helper';
@@ -25,6 +25,8 @@ export class UserComponent implements OnInit {
   userForm: FormGroup;
   user: User;
   selectedUser: User;
+  params: UserQuery;
+  totalRecords: number;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private roleService: RoleService) {
     this.userForm = this.formBuilder.group({
@@ -45,9 +47,10 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fetchUsers();
+    // this.fetchUsers();
     // this.roles.push({ label: "Select Role", value: null });
     this.fetchRoles();
+    this.params = <UserQuery>{ page: 0, size: 5, sortField: "id", sortOrder: -1 };
   }
 
   openForm() {
@@ -102,12 +105,21 @@ export class UserComponent implements OnInit {
     }).catch((err) => {});
   }
 
-  private fetchUsers() {
+  fetchUsers(event?: LazyLoadEvent) {
     this.loading = true;
-    this.userService.fetch().subscribe((res) => {
+    
+    if (event) {
+      this.params.page = event.first / event.rows;
+      this.params.size = event.rows;
+      this.params.sortField = event.sortField || this.params.sortField;
+    }
+    this.params.sortOrder = event.sortOrder || this.params.sortOrder;
+    
+    this.userService.query(this.params).subscribe((res) => {
       this.loading = false;
       if (res.success) {
         this.users = res.data;
+        this.totalRecords = res.total;
       }
     });
   }

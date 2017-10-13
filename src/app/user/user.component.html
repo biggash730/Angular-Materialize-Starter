@@ -6,7 +6,8 @@
     </div>
 
     <div class="row">
-        <p-dataTable [value]="users" [responsive]="true" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15]" [loading]="loading"
+        <p-dataTable [value]="users" [lazy]="true" (onLazyLoad)="fetchUsers($event)" [totalRecords]="totalRecords" [responsive]="true" 
+            [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,15]" [loading]="loading" [sortOrder]="-1"
             loadingIcon="fa-spinner" selectionMode="single" [(selection)]="selectedUser" (onRowSelect)="onRowSelect($event)">
             <p-column header="#" styleClass="table-index">
                 <ng-template let-i="rowIndex" pTemplate="body">{{i + 1}}</ng-template>

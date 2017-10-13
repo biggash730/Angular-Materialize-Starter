@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ResponseObject } from '../shared/common-entities.model';
-import { User } from '../auth/auth.model';
+import { User, UserQuery } from '../auth/auth.model';
 
 @Injectable()
 export class UserService {
@@ -11,6 +11,10 @@ export class UserService {
 
   fetch() {
     return this.httpClient.get<ResponseObject<User[]>>(`${this.baseApi}/auth/users`);
+  }
+
+  query(params: UserQuery) {
+    return this.httpClient.post<ResponseObject<User[]>>(`${this.baseApi}/auth/users/query`, params);
   }
 
   save(params: User) {

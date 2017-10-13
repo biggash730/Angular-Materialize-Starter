@@ -4,3 +4,9 @@ export interface ResponseObject<T> {
     message: string;
     total: number;
 }
+
+export interface SearchCriteria {
+    key: string
+    value: object
+    operation: string
+}
